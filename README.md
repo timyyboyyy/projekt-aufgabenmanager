@@ -26,9 +26,11 @@ Studentisches Prüfungsprojekt (Fallstudie) im Kurs *Programmierung von Web-Anwe
 ### Backend
 ```bash
 cd backend
-mvn spring-boot:run
+./mvnw spring-boot:run     # ohne lokale Maven-Installation (Maven Wrapper)
+# alternativ, falls Maven installiert ist: mvn spring-boot:run
 # API unter http://localhost:8080
 ```
+Voraussetzung: JDK 21. Der Maven Wrapper (`./mvnw`) lädt Maven automatisch.
 ### Frontend
 ```bash
 cd frontend
@@ -46,7 +48,7 @@ npm run dev
 
 ## Tests ausführen
 ```bash
-cd backend && mvn test
+cd backend && ./mvnw test
 cd frontend && npm test
 ```
 

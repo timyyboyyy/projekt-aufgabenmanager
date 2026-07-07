@@ -2,13 +2,14 @@
 target/
 *.class
 *.jar
+# Maven Wrapper (mvnw, mvnw.cmd, .mvn/wrapper/) wird bewusst eingecheckt
 !.mvn/wrapper/maven-wrapper.jar
-.mvn/
 # Spring / lokale Konfiguration
 application-local.properties
 *.env
 .env
 # H2-Datenbankdateien
+data/
 *.db
 *.mv.db
 *.trace.db
@@ -23,3 +24,4 @@ npm-debug.log*
 *.iml
 .DS_Store
 Thumbs.db
+_planung/

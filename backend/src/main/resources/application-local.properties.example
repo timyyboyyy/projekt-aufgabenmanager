@@ -1,0 +1,6 @@
+# Vorlage fuer lokale, NICHT eingecheckte Konfiguration.
+# Kopieren nach application-local.properties (gitignored) ODER Werte als Umgebungsvariablen setzen.
+# Aktivieren z. B. per: --spring.profiles.active=local  (oder SPRING_PROFILES_ACTIVE=local)
+
+# JWT-Secret: mind. 32 Zeichen / 256 Bit fuer HS256. Beispiel neu erzeugen, nicht uebernehmen.
+app.jwt.secret=CHANGE_ME_zu_einem_langen_zufaelligen_Secret_mind_32_Zeichen
