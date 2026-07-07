@@ -35,8 +35,8 @@ export default function ProjectDetail() {
   const canEditTasks = isLeiter || isMember
   const assignees = project ? dedupeById([project.leiter, ...project.members]) : []
 
-  const load = useCallback(async () => {
-    setLoading(true)
+  const load = useCallback(async (showSpinner = false) => {
+    if (showSpinner) setLoading(true)
     try {
       const projects = await projectsApi.listProjects()
       const found = projects.find((p) => p.id === projectId) ?? null
@@ -63,12 +63,12 @@ export default function ProjectDetail() {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Laden fehlgeschlagen.')
     } finally {
-      setLoading(false)
+      if (showSpinner) setLoading(false)
     }
   }, [projectId, user?.username])
 
   useEffect(() => {
-    load()
+    load(true)
   }, [load])
 
   async function handleStatusChange(task: Task, status: TaskStatus) {
