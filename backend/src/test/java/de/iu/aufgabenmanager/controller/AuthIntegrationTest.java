@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.emptyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -70,6 +71,37 @@ class AuthIntegrationTest {
         String token = obtainToken("admin", "admin123");
         mockMvc.perform(get("/api/users").header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Deaktivierter Benutzer wird trotz gueltigem Token abgewiesen (401)")
+    void deactivatedUserTokenIsRejected() throws Exception {
+        String adminToken = obtainToken("admin", "admin123");
+
+        // Wegwerf-Benutzer anlegen und dessen Token holen.
+        MvcResult created = mockMvc.perform(post("/api/users")
+                        .header("Authorization", "Bearer " + adminToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"username\":\"gesperrt\",\"password\":\"pw12345678\",\"role\":\"MITARBEITER\"}"))
+                .andExpect(status().isCreated())
+                .andReturn();
+        long userId = objectMapper.readTree(created.getResponse().getContentAsString()).get("id").asLong();
+        String userToken = obtainToken("gesperrt", "pw12345678");
+
+        // Token funktioniert, solange das Konto aktiv ist.
+        mockMvc.perform(get("/api/auth/me").header("Authorization", "Bearer " + userToken))
+                .andExpect(status().isOk());
+
+        // Konto deaktivieren.
+        mockMvc.perform(put("/api/users/" + userId)
+                        .header("Authorization", "Bearer " + adminToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"aktiv\":false}"))
+                .andExpect(status().isOk());
+
+        // Dasselbe (weiterhin gueltige) Token wird jetzt abgewiesen.
+        mockMvc.perform(get("/api/auth/me").header("Authorization", "Bearer " + userToken))
+                .andExpect(status().isUnauthorized());
     }
 
     private org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder login(

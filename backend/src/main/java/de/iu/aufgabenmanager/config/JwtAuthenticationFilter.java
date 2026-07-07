@@ -55,6 +55,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         try {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            // Deaktivierte/gesperrte Konten nicht authentifizieren, auch wenn das Token noch
+            // gueltig ist. Sonst behaelt ein deaktivierter Benutzer bis zum Token-Ablauf Zugriff.
+            if (!userDetails.isEnabled() || !userDetails.isAccountNonLocked()) {
+                return;
+            }
             var authentication = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
