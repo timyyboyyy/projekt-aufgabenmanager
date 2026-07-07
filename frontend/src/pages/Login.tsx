@@ -3,6 +3,7 @@ import type { FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { ApiError } from '../api/client'
+import BrandMark from '../components/BrandMark'
 
 export default function Login() {
   const { login } = useAuth()
@@ -34,27 +35,26 @@ export default function Login() {
   }
 
   return (
-    <main style={{ maxWidth: 360, margin: '10vh auto', padding: '0 1rem' }}>
-      <h1>Anmelden</h1>
-      <p>Projekt- und Aufgabenmanager</p>
-      <form onSubmit={onSubmit}>
-        <div style={{ marginBottom: '0.75rem' }}>
-          <label htmlFor="username" style={{ display: 'block' }}>
-            Benutzername
-          </label>
+    <main className="auth">
+      <div className="auth-card">
+        <div className="auth-brand">
+          <BrandMark size={30} />
+          Aufgabenmanager
+        </div>
+        <h1>Anmelden</h1>
+        <p className="auth-sub">Melde dich mit deinem Benutzerkonto an.</p>
+
+        <form onSubmit={onSubmit}>
+          <label htmlFor="username">Benutzername</label>
           <input
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             autoComplete="username"
             required
-            style={{ width: '100%' }}
           />
-        </div>
-        <div style={{ marginBottom: '0.75rem' }}>
-          <label htmlFor="password" style={{ display: 'block' }}>
-            Passwort
-          </label>
+
+          <label htmlFor="password">Passwort</label>
           <input
             id="password"
             type="password"
@@ -62,18 +62,19 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
             required
-            style={{ width: '100%' }}
           />
-        </div>
-        {error && (
-          <p role="alert" style={{ color: 'crimson' }}>
-            {error}
-          </p>
-        )}
-        <button type="submit" disabled={submitting}>
-          {submitting ? 'Anmelden…' : 'Anmelden'}
-        </button>
-      </form>
+
+          {error && (
+            <p role="alert" className="error">
+              {error}
+            </p>
+          )}
+
+          <button type="submit" disabled={submitting}>
+            {submitting ? 'Anmelden…' : 'Anmelden'}
+          </button>
+        </form>
+      </div>
     </main>
   )
 }

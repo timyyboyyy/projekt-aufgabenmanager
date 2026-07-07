@@ -100,7 +100,8 @@ export default function UserManagement() {
       {loading ? (
         <p>Lädt…</p>
       ) : (
-        <table className="table">
+        <div className="table-wrap">
+          <table className="table">
           <thead>
             <tr>
               <th>Benutzername</th>
@@ -133,8 +134,9 @@ export default function UserManagement() {
                 </td>
               </tr>
             ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       )}
     </section>
   )

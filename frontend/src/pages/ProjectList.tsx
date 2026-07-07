@@ -87,7 +87,8 @@ export default function ProjectList() {
       ) : projects.length === 0 ? (
         <p>Keine Projekte vorhanden.</p>
       ) : (
-        <table className="table">
+        <div className="table-wrap">
+          <table className="table">
           <thead>
             <tr>
               <th>Name</th>
@@ -121,8 +122,9 @@ export default function ProjectList() {
                 </td>
               </tr>
             ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       )}
     </section>
   )

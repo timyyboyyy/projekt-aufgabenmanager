@@ -229,7 +229,8 @@ export default function ProjectDetail() {
       {tasks.length === 0 ? (
         <p className="muted">Keine Aufgaben.</p>
       ) : (
-        <table className="table">
+        <div className="table-wrap">
+          <table className="table">
           <thead>
             <tr>
               <th>Titel</th>
@@ -278,8 +279,9 @@ export default function ProjectDetail() {
                 )}
               </tr>
             ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       )}
     </section>
   )
