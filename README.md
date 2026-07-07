@@ -40,11 +40,14 @@ npm run dev
 ```
 
 ## Testzugänge (Seed-Daten)
+Werden beim ersten Start automatisch angelegt (`DataSeeder`). Nur für die lokale Demo.
+
 | Rolle | Benutzer | Passwort |
 |---|---|---|
-| Administrator | admin | <siehe Doku> |
-| Projektleiter | pleiter | <siehe Doku> |
-| Mitarbeitende | user1 | <siehe Doku> |
+| Administrator | admin | admin123 |
+| Projektleiter | pleiter | pleiter123 |
+| Mitarbeitende | user1 | user123 |
+| Mitarbeitende | user2 | user123 |
 
 ## Tests ausführen
 ```bash
