@@ -59,11 +59,11 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    /** Erlaubt der lokalen React-Dev-Instanz direkte Zugriffe (der Vite-Proxy nutzt bereits /api). */
+    /** Erlaubt der lokalen React-Dev-Instanz auf beliebigem Port direkte Zugriffe (nur Entwicklung). */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOriginPatterns(List.of("http://localhost:[*]", "http://127.0.0.1:[*]"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
