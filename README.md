@@ -38,8 +38,9 @@ npm install
 npm run dev
 # UI unter http://localhost:5173
 ```
-Der Dev-Server läuft auf Port **5173** (in der CORS-Konfiguration des Backends erlaubt) und
-leitet `/api`-Aufrufe per Proxy an das Backend auf Port 8080 weiter.
+Der Dev-Server läuft standardmäßig auf Port **5173** und leitet `/api`-Aufrufe per Proxy an das
+Backend (Port 8080) weiter. Die Backend-CORS-Konfiguration erlaubt lokale Dev-Origins auf
+beliebigem Port.
 
 ## Testzugänge (Seed-Daten)
 Werden beim ersten Start automatisch angelegt (`DataSeeder`). Nur für die lokale Demo.
