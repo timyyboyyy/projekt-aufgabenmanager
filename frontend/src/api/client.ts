@@ -3,6 +3,10 @@
 
 export const TOKEN_KEY = 'token'
 
+// Wird bei einer 401-Antwort ausgeloest, damit der AuthProvider die Sitzung raeumen
+// und zur Login-Seite fuehren kann (z. B. abgelaufenes/ungueltiges Token).
+export const UNAUTHORIZED_EVENT = 'auth:unauthorized'
+
 export class ApiError extends Error {
   status: number
 
@@ -34,6 +38,11 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
       }
     } catch {
       // keine JSON-Fehlermeldung vorhanden
+    }
+    // Abgelaufenes/ungueltiges Token: Sitzung raeumen und den AuthProvider informieren.
+    if (response.status === 401) {
+      localStorage.removeItem(TOKEN_KEY)
+      window.dispatchEvent(new Event(UNAUTHORIZED_EVENT))
     }
     throw new ApiError(response.status, message)
   }

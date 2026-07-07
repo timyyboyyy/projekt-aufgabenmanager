@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import * as authApi from '../api/auth'
 import type { AuthUser } from '../api/auth'
-import { TOKEN_KEY } from '../api/client'
+import { TOKEN_KEY, UNAUTHORIZED_EVENT } from '../api/client'
 
 interface AuthContextValue {
   user: AuthUser | null
@@ -29,6 +29,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .then(setUser)
       .catch(() => localStorage.removeItem(TOKEN_KEY))
       .finally(() => setLoading(false))
+  }, [])
+
+  // Auf ein 401 aus apiFetch reagieren: Sitzung raeumen (fuehrt via ProtectedRoute nach /login).
+  useEffect(() => {
+    function handleUnauthorized() {
+      localStorage.removeItem(TOKEN_KEY)
+      setUser(null)
+    }
+    window.addEventListener(UNAUTHORIZED_EVENT, handleUnauthorized)
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, handleUnauthorized)
   }, [])
 
   async function login(username: string, password: string) {

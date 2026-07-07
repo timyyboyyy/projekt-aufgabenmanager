@@ -1,9 +1,11 @@
+import { act } from 'react'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ProtectedRoute } from './ProtectedRoute'
 import { AuthProvider } from '../context/AuthContext'
 import * as authApi from '../api/auth'
+import { UNAUTHORIZED_EVENT } from '../api/client'
 
 vi.mock('../api/auth')
 
@@ -59,5 +61,19 @@ describe('ProtectedRoute', () => {
     vi.mocked(authApi.getMe).mockResolvedValue({ username: 'admin', role: 'ADMIN' })
     renderAt('/admin')
     expect(await screen.findByText('Admin-Bereich')).toBeInTheDocument()
+  })
+
+  it('meldet bei einem 401-Event ab und leitet auf die Login-Seite', async () => {
+    localStorage.setItem('token', 'x')
+    vi.mocked(authApi.getMe).mockResolvedValue({ username: 'admin', role: 'ADMIN' })
+    renderAt('/admin')
+    expect(await screen.findByText('Admin-Bereich')).toBeInTheDocument()
+
+    await act(async () => {
+      window.dispatchEvent(new Event(UNAUTHORIZED_EVENT))
+    })
+
+    expect(await screen.findByText('Login-Seite')).toBeInTheDocument()
+    expect(localStorage.getItem('token')).toBeNull()
   })
 })
