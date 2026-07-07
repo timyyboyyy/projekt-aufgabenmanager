@@ -1,21 +1,28 @@
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-/**
- * Platzhalter-Dashboard fuer Schritt 6 (geschuetzte Route). Die eigentlichen,
- * rollenabhaengigen Inhalte folgen in Schritt 7.
- */
+/** Einstieg mit rollenabhaengigen Kacheln. */
 export default function Dashboard() {
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
 
   return (
-    <main style={{ maxWidth: 640, margin: '2rem auto', padding: '0 1rem' }}>
+    <section>
       <h1>Dashboard</h1>
       <p>
-        Angemeldet als <strong>{user?.username}</strong> ({user?.role}).
+        Willkommen, <strong>{user?.username}</strong> ({user?.role}).
       </p>
-      <button type="button" onClick={logout}>
-        Abmelden
-      </button>
-    </main>
+      <div className="cards">
+        <Link className="card" to="/projects">
+          <h2>Projekte</h2>
+          <p>Berechtigte Projekte, Aufgaben und Fortschritt ansehen und bearbeiten.</p>
+        </Link>
+        {user?.role === 'ADMIN' && (
+          <Link className="card" to="/users">
+            <h2>Benutzerverwaltung</h2>
+            <p>Benutzerkonten anlegen, bearbeiten und Rollen zuweisen.</p>
+          </Link>
+        )}
+      </div>
+    </section>
   )
 }
