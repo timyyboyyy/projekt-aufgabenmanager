@@ -20,7 +20,7 @@ Studentisches Prüfungsprojekt (Fallstudie) im Kurs *Programmierung von Web-Anwe
 ## Projektstruktur
 - `backend/`  – Spring-Boot-Anwendung (REST-API)
 - `frontend/` – React-SPA
-- `docs/`     – ER-Diagramm, UML, Mockups, Screenshots
+- `docs/`     – ER-Diagramm, UML, Architektur, Navigation, Screenshots
 
 ## Setup & Start
 ### Backend
@@ -38,6 +38,8 @@ npm install
 npm run dev
 # UI unter http://localhost:5173
 ```
+Der Dev-Server läuft auf Port **5173** (in der CORS-Konfiguration des Backends erlaubt) und
+leitet `/api`-Aufrufe per Proxy an das Backend auf Port 8080 weiter.
 
 ## Testzugänge (Seed-Daten)
 Werden beim ersten Start automatisch angelegt (`DataSeeder`). Nur für die lokale Demo.
@@ -56,7 +58,26 @@ cd frontend && npm test
 ```
 
 ## Screenshots
-_(werden nach Umsetzung ergänzt)_
+Anmeldung, rollenabhängiges Dashboard, Benutzerverwaltung, Projektliste und Projektdetail
+(mit Fortschrittsbalken). Erzeugt auf den Seed-Daten.
+
+| | |
+|---|---|
+| **Login** | **Dashboard (Admin)** |
+| ![Login](docs/screenshots/01-login.png) | ![Dashboard](docs/screenshots/02-dashboard-admin.png) |
+| **Benutzerverwaltung** | **Projektliste** |
+| ![Benutzerverwaltung](docs/screenshots/03-benutzerverwaltung.png) | ![Projektliste](docs/screenshots/04-projektliste.png) |
+
+**Projektdetail (Fortschritt, Mitglieder, Aufgaben)**
+
+![Projektdetail](docs/screenshots/05-projektdetail.png)
+
+## Dokumentation & Diagramme
+Im Ordner `docs/` (Mermaid, auf GitHub direkt gerendert):
+- [ER-Diagramm](docs/er-diagramm.md)
+- [UML-Klassendiagramm](docs/uml-klassendiagramm.md)
+- [Architektur](docs/architektur.md)
+- [Navigation](docs/navigation.md)
 
 ## Hinweis
 Studentisches Projekt im Rahmen einer Prüfungsleistung an der IU Internationalen Hochschule.
