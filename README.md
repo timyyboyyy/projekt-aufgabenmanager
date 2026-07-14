@@ -59,19 +59,22 @@ cd frontend && npm test
 ```
 
 ## Screenshots
-Anmeldung, rollenabhängiges Dashboard, Benutzerverwaltung, Projektliste und Projektdetail
-(mit Fortschrittsbalken). Erzeugt auf den Seed-Daten.
+Anmeldung, rollenabhängiges Dashboard, Projektliste (Projektleiter- und Mitarbeitersicht),
+Projektdetail (mit Fortschrittsbalken), Aufgaben-Dialog und Benutzerverwaltung. Erzeugt auf
+den Seed-Daten. Details je Screenshot: [docs/screenshots/README.md](docs/screenshots/README.md).
 
 | | |
 |---|---|
-| **Login** | **Dashboard (Admin)** |
-| ![Login](docs/screenshots/01-login.png) | ![Dashboard](docs/screenshots/02-dashboard-admin.png) |
-| **Benutzerverwaltung** | **Projektliste** |
-| ![Benutzerverwaltung](docs/screenshots/03-benutzerverwaltung.png) | ![Projektliste](docs/screenshots/04-projektliste.png) |
+| **Login** | **Dashboard (Projektleiter)** |
+| ![Login](docs/screenshots/01-login.png) | ![Dashboard](docs/screenshots/02-dashboard-projektleiter.png) |
+| **Projektliste (Projektleiter)** | **Projektdetail** |
+| ![Projektliste](docs/screenshots/03-projektliste.png) | ![Projektdetail](docs/screenshots/04-projektdetail.png) |
+| **Aufgaben-Dialog** | **Benutzerverwaltung** |
+| ![Aufgaben-Dialog](docs/screenshots/05-aufgaben-dialog.png) | ![Benutzerverwaltung](docs/screenshots/06-benutzerverwaltung.png) |
 
-**Projektdetail (Fortschritt, Mitglieder, Aufgaben)**
+**Projektliste (Mitarbeiter, gefilterte Sicht ohne Anlegen-Formular)**
 
-![Projektdetail](docs/screenshots/05-projektdetail.png)
+![Projektliste Mitarbeiter](docs/screenshots/07-projektliste-mitarbeiter.png)
 
 ## Dokumentation & Diagramme
 Im Ordner `docs/` (Mermaid, auf GitHub direkt gerendert):
