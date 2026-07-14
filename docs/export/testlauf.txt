@@ -1,0 +1,237 @@
+Testlauf Aufgabenmanager
+Datum: 2026-07-14 11:02:07 CEST
+
+========================================
+Backend: ./mvnw test (backend/)
+========================================
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< de.iu:aufgabenmanager >------------------------
+[INFO] Building aufgabenmanager 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ aufgabenmanager ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ aufgabenmanager ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ aufgabenmanager ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ aufgabenmanager ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ aufgabenmanager ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.iu.aufgabenmanager.repository.ProjectRepositoryTest
+11:00:46.553 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [de.iu.aufgabenmanager.repository.ProjectRepositoryTest]: ProjectRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:00:46.665 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration de.iu.aufgabenmanager.AufgabenmanagerApplication for test class de.iu.aufgabenmanager.repository.ProjectRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-07-14T11:00:47.013+02:00  INFO 31827 --- [           main] d.i.a.repository.ProjectRepositoryTest   : Starting ProjectRepositoryTest using Java 21.0.11 with PID 31827 (started by tim in /home/tim/uni/projekt-aufgabenmanager/backend)
+2026-07-14T11:00:47.014+02:00  INFO 31827 --- [           main] d.i.a.repository.ProjectRepositoryTest   : No active profile set, falling back to 1 default profile: "default"
+2026-07-14T11:00:47.296+02:00  INFO 31827 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-07-14T11:00:47.353+02:00  INFO 31827 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 4 JPA repository interfaces.
+2026-07-14T11:00:47.409+02:00  INFO 31827 --- [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2026-07-14T11:00:47.485+02:00  INFO 31827 --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:08368e84-fa12-4e5a-b880-06e7dfd56e12;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-07-14T11:00:47.666+02:00  INFO 31827 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-07-14T11:00:47.704+02:00  INFO 31827 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.53.Final
+2026-07-14T11:00:47.726+02:00  INFO 31827 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-07-14T11:00:47.923+02:00  INFO 31827 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-07-14T11:00:47.980+02:00  INFO 31827 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory$EmbeddedDataSourceProxy@5d1a859c']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-07-14T11:00:48.619+02:00  INFO 31827 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists app_user cascade 
+Hibernate: drop table if exists project cascade 
+Hibernate: drop table if exists project_member cascade 
+Hibernate: drop table if exists role cascade 
+Hibernate: drop table if exists task cascade 
+Hibernate: create table app_user (aktiv boolean not null, id bigint generated by default as identity, organisation_id bigint not null, role_id bigint not null, username varchar(50) not null unique, password_hash varchar(255) not null, primary key (id))
+Hibernate: create table project (id bigint generated by default as identity, leiter_id bigint not null, organisation_id bigint not null, name varchar(120) not null, beschreibung varchar(1000), status enum ('AKTIV','ARCHIVIERT') not null, primary key (id))
+Hibernate: create table project_member (project_id bigint not null, user_id bigint not null, primary key (project_id, user_id))
+Hibernate: create table role (id bigint generated by default as identity, name enum ('ADMIN','MITARBEITER','PROJEKTLEITER') not null unique, primary key (id))
+Hibernate: create table task (bearbeiter_id bigint, id bigint generated by default as identity, project_id bigint not null, titel varchar(160) not null, beschreibung varchar(1000), status enum ('ERLEDIGT','IN_BEARBEITUNG','OFFEN') not null, primary key (id))
+Hibernate: alter table if exists app_user add constraint FK49hx9nj6onfot1fxtonj986ab foreign key (role_id) references role
+Hibernate: alter table if exists project add constraint FK3d65sj77cgewivatgwnh06gtb foreign key (leiter_id) references app_user
+Hibernate: alter table if exists project_member add constraint FKt92n46cex24g2m96l4o8c1dyc foreign key (user_id) references app_user
+Hibernate: alter table if exists project_member add constraint FK103dwxad12nbaxtmnwus4eft2 foreign key (project_id) references project
+Hibernate: alter table if exists task add constraint FKt5huasqkbp0jvnnwcgoveccpi foreign key (bearbeiter_id) references app_user
+Hibernate: alter table if exists task add constraint FKk8qrwowg31kx7hp93sru1pdqa foreign key (project_id) references project
+2026-07-14T11:00:48.659+02:00  INFO 31827 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-07-14T11:00:48.992+02:00  INFO 31827 --- [           main] d.i.a.repository.ProjectRepositoryTest   : Started ProjectRepositoryTest in 2.267 seconds (process running for 3.096)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/home/tim/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Hibernate: insert into role (name,id) values (?,default)
+Hibernate: insert into role (name,id) values (?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into project (beschreibung,leiter_id,name,organisation_id,status,id) values (?,?,?,?,?,default)
+Hibernate: insert into project (beschreibung,leiter_id,name,organisation_id,status,id) values (?,?,?,?,?,default)
+Hibernate: insert into project_member (project_id,user_id) values (?,?)
+Hibernate: select p1_0.id,p1_0.beschreibung,p1_0.leiter_id,p1_0.name,p1_0.organisation_id,p1_0.status from project p1_0 left join project_member m1_0 on p1_0.id=m1_0.project_id where m1_0.user_id=?
+Hibernate: select u1_0.id,u1_0.aktiv,u1_0.organisation_id,u1_0.password_hash,u1_0.role_id,r1_0.id,r1_0.name,u1_0.username from app_user u1_0 join role r1_0 on r1_0.id=u1_0.role_id where u1_0.id=?
+Hibernate: select p1_0.id,p1_0.beschreibung,p1_0.leiter_id,p1_0.name,p1_0.organisation_id,p1_0.status from project p1_0 left join project_member m1_0 on p1_0.id=m1_0.project_id where m1_0.user_id=?
+Hibernate: insert into role (name,id) values (?,default)
+Hibernate: insert into role (name,id) values (?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into project (beschreibung,leiter_id,name,organisation_id,status,id) values (?,?,?,?,?,default)
+Hibernate: insert into project (beschreibung,leiter_id,name,organisation_id,status,id) values (?,?,?,?,?,default)
+Hibernate: insert into project_member (project_id,user_id) values (?,?)
+Hibernate: select p1_0.id,p1_0.beschreibung,p1_0.leiter_id,p1_0.name,p1_0.organisation_id,p1_0.status from project p1_0 join app_user l1_0 on l1_0.id=p1_0.leiter_id where l1_0.id=?
+Hibernate: select u1_0.id,u1_0.aktiv,u1_0.organisation_id,u1_0.password_hash,u1_0.role_id,r1_0.id,r1_0.name,u1_0.username from app_user u1_0 join role r1_0 on r1_0.id=u1_0.role_id where u1_0.id=?
+Hibernate: insert into role (name,id) values (?,default)
+Hibernate: insert into role (name,id) values (?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into app_user (aktiv,organisation_id,password_hash,role_id,username,id) values (?,?,?,?,?,default)
+Hibernate: insert into project (beschreibung,leiter_id,name,organisation_id,status,id) values (?,?,?,?,?,default)
+Hibernate: insert into project (beschreibung,leiter_id,name,organisation_id,status,id) values (?,?,?,?,?,default)
+Hibernate: insert into project_member (project_id,user_id) values (?,?)
+Hibernate: select p1_0.id,p1_0.beschreibung,p1_0.leiter_id,p1_0.name,p1_0.organisation_id,p1_0.status from project p1_0 where p1_0.status=?
+Hibernate: select u1_0.id,u1_0.aktiv,u1_0.organisation_id,u1_0.password_hash,u1_0.role_id,r1_0.id,r1_0.name,u1_0.username from app_user u1_0 join role r1_0 on r1_0.id=u1_0.role_id where u1_0.id=?
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.146 s -- in de.iu.aufgabenmanager.repository.ProjectRepositoryTest
+[INFO] Running de.iu.aufgabenmanager.dto.ProjectProgressResponseTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 s -- in de.iu.aufgabenmanager.dto.ProjectProgressResponseTest
+[INFO] Running de.iu.aufgabenmanager.AufgabenmanagerApplicationTests
+2026-07-14T11:00:49.640+02:00  INFO 31827 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.iu.aufgabenmanager.AufgabenmanagerApplicationTests]: AufgabenmanagerApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-07-14T11:00:49.646+02:00  INFO 31827 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.iu.aufgabenmanager.AufgabenmanagerApplication for test class de.iu.aufgabenmanager.AufgabenmanagerApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-07-14T11:00:49.678+02:00  INFO 31827 --- [           main] d.i.a.AufgabenmanagerApplicationTests    : Starting AufgabenmanagerApplicationTests using Java 21.0.11 with PID 31827 (started by tim in /home/tim/uni/projekt-aufgabenmanager/backend)
+2026-07-14T11:00:49.679+02:00  INFO 31827 --- [           main] d.i.a.AufgabenmanagerApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-14T11:00:49.951+02:00  INFO 31827 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-07-14T11:00:49.961+02:00  INFO 31827 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 4 JPA repository interfaces.
+2026-07-14T11:00:50.255+02:00  INFO 31827 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-07-14T11:00:50.256+02:00  INFO 31827 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-07-14T11:00:50.262+02:00  INFO 31827 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-07-14T11:00:50.264+02:00  INFO 31827 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-07-14T11:00:50.274+02:00  INFO 31827 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn7: url=jdbc:h2:mem:testdb user=SA
+2026-07-14T11:00:50.276+02:00  INFO 31827 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-07-14T11:00:50.285+02:00  INFO 31827 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-07-14T11:00:50.328+02:00  INFO 31827 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-07-14T11:00:50.344+02:00  INFO 31827 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-07-14T11:00:50.497+02:00  INFO 31827 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-07-14T11:00:50.572+02:00  WARN 31827 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-14T11:00:51.070+02:00  INFO 31827 --- [           main] d.i.a.AufgabenmanagerApplicationTests    : Started AufgabenmanagerApplicationTests in 1.415 seconds (process running for 5.175)
+2026-07-14T11:00:51.441+02:00  INFO 31827 --- [           main] d.iu.aufgabenmanager.config.DataSeeder   : DataSeeder: 3 Rollen, 4 Benutzer, 2 Projekte, 5 Aufgaben angelegt.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.817 s -- in de.iu.aufgabenmanager.AufgabenmanagerApplicationTests
+[INFO] Running de.iu.aufgabenmanager.model.TaskStatusTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in de.iu.aufgabenmanager.model.TaskStatusTest
+[INFO] Running de.iu.aufgabenmanager.controller.AuthIntegrationTest
+2026-07-14T11:00:51.478+02:00  INFO 31827 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.iu.aufgabenmanager.controller.AuthIntegrationTest]: AuthIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-07-14T11:00:51.485+02:00  INFO 31827 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.iu.aufgabenmanager.AufgabenmanagerApplication for test class de.iu.aufgabenmanager.controller.AuthIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-07-14T11:00:51.499+02:00  INFO 31827 --- [           main] d.i.a.controller.AuthIntegrationTest     : Starting AuthIntegrationTest using Java 21.0.11 with PID 31827 (started by tim in /home/tim/uni/projekt-aufgabenmanager/backend)
+2026-07-14T11:00:51.499+02:00  INFO 31827 --- [           main] d.i.a.controller.AuthIntegrationTest     : No active profile set, falling back to 1 default profile: "default"
+2026-07-14T11:00:51.624+02:00  INFO 31827 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-07-14T11:00:51.631+02:00  INFO 31827 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 4 JPA repository interfaces.
+2026-07-14T11:00:51.712+02:00  INFO 31827 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-07-14T11:00:51.713+02:00  INFO 31827 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-07-14T11:00:51.718+02:00  INFO 31827 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-07-14T11:00:51.719+02:00  INFO 31827 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-07-14T11:00:51.720+02:00  INFO 31827 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn17: url=jdbc:h2:mem:testdb user=SA
+2026-07-14T11:00:51.720+02:00  INFO 31827 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-07-14T11:00:51.720+02:00  INFO 31827 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-07-14T11:00:51.757+02:00  INFO 31827 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-07-14T11:00:51.772+02:00  INFO 31827 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-07-14T11:00:51.854+02:00  INFO 31827 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name appUserDetailsService
+2026-07-14T11:00:51.884+02:00  WARN 31827 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-14T11:00:52.122+02:00  INFO 31827 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-07-14T11:00:52.123+02:00  INFO 31827 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-07-14T11:00:52.124+02:00  INFO 31827 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-07-14T11:00:52.133+02:00  INFO 31827 --- [           main] d.i.a.controller.AuthIntegrationTest     : Started AuthIntegrationTest in 0.646 seconds (process running for 6.238)
+2026-07-14T11:00:52.368+02:00  INFO 31827 --- [           main] d.iu.aufgabenmanager.config.DataSeeder   : DataSeeder: 3 Rollen, 4 Benutzer, 2 Projekte, 5 Aufgaben angelegt.
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.709 s -- in de.iu.aufgabenmanager.controller.AuthIntegrationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.524 s
+[INFO] Finished at: 2026-07-14T11:00:53+02:00
+[INFO] ------------------------------------------------------------------------
+
+========================================
+Frontend: npm test -- --run (frontend/)
+========================================
+
+
+> frontend@0.0.0 test
+> vitest run --run
+
+
+ RUN  v3.2.7 /home/tim/uni/projekt-aufgabenmanager/frontend
+
+ ✓ src/routes/ProtectedRoute.test.tsx (4 tests) 78ms
+ ✓ src/App.test.tsx (1 test) 122ms
+ ✓ src/pages/ProjectDetail.test.tsx (1 test) 159ms
+ ✓ src/pages/Login.test.tsx (2 tests) 353ms
+
+ Test Files  4 passed (4)
+      Tests  8 passed (8)
+   Start at  11:01:52
+   Duration  1.73s (transform 386ms, setup 813ms, collect 837ms, tests 712ms, environment 2.98s, prepare 272ms)
+
